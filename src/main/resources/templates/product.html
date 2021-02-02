@@ -1,19 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-    <title>Edit Customer Details</title>
-
+    <title>Product site</title>
+    <meta charset="utf-8"/>
+    <link th:href="@{/styles/style_product.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/scripts/script_product.js}"></script>
 </head>
 <body>
+<div class="menu">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+            <a href="https://www.google.com/" class="dropbtn">Kategorie</a>
+            <div class="dropdown-content">
+                <a href="#">Damskie</a>
+                <a href="#">Męskie</a>
+                <a href="#">Akcesoria</a>
+            </div>
+        <li><a href="#L2">O nas</a></li>
+        <li><a href="#L3">Kontakt</a></li>
 
-<p>Pozdrowienia</p>
-<p th:text="${name}">Pozdrowienia</p>
-<p th:text="${product.getProductMaker()}"></p>
-<p th:text="${product.getProductName()}"></p>
-<p th:text="${product.getPrice()}"></p>
-<p th:text="${product.getAmount()}"></p>
-<p th:text="${product.getDescription()}"></p>
+        </li>
+    </ul>
+</div>
 
+<div class="hamburger">
+    <img th:src="@{/foto/closed_hamburger.png}" alt="Open menu" id="burger" />
+</div>
+
+<div class="left_gallery">
+
+    <div class="row">
+        <div class="column">
+            <img th:src="@{/foto/BL1.jpg}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+        </div>
+        <div class="column">
+            <img th:src="@{/foto/BL2.jpg}" style="width:100%" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <img th:src="@{/foto/BL3.jpg}" style="width:100%" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
+        </div>
+        <div class="column">
+            <img th:src="@{/foto/BL4.jpg}" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close cursor" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+
+            <div class="mySlides">
+                <div class="numbertext">1 / 4</div>
+                <img th:src="@{/foto/1_1.jpg}" style="width:100% ">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">2 / 4</div>
+                <img th:src="@{/foto/1_2.jpg}" style="width:100%">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">3 / 4</div>
+                <img th:src="@{/foto/1_3.jpg}" style="width:100%">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">4 / 4</div>
+                <img th:src="@{/foto/1_4.jpg}" style="width:100%">
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="caption-container">
+                <p id="caption"></p>
+            </div>
+
+
+            <div class="column_d">
+                <img class="demo cursor" th:src="@{/foto/1_1.jpg}" style="width:100%" onclick="currentSlide(1)" th:alt="${product.getProductName()}">
+            </div>
+            <div class="column_d">
+                <img class="demo cursor" th:src="@{/foto/1_2.jpg}" style="width:100%" onclick="currentSlide(2)" th:alt="${product.getProductName()}">
+            </div>
+            <div class="column_d">
+                <img class="demo cursor" th:src="@{/foto/1_3.jpg}" style="width:100%" onclick="currentSlide(3)" th:alt="${product.getProductName()}">
+            </div>
+            <div class="column_d">
+                <img class="demo cursor" th:src="@{/foto/1_4.jpg}" style="width:100%" onclick="currentSlide(4)" th:alt="${product.getProductName()}">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="right_description">
+    <h1 class="product_name" th:text="${product.getProductName()}"></h1>
+    <h2 class="price" th:text="${product.getPrice()} "></h2>
+    <h2 class="price">PLN</h2>
+    <p th:text="${product.getDescription()}"></p>
+    <ul>
+        <li>Omnis iste natus error sit voluptatem</li>
+        <li>Accusantium doloremque</li>
+        <li>Laudantium, totam rem aperiam,</li>
+        <li>Eaque ipsa quae ab illo inventore veritatis</li>
+    </ul>
+    <div class="cart">
+        <h3>Dodaj do koszyka</h3>
+        <img class="cart_icon" th:src="@{/foto/cart.png}" alt="Dodaj do koszyka:">
+    </div>
+
+</div>
+
+<!--<p>Pozdrowienia</p>-->
+<!--<p th:text="${name}">Pozdrowienia</p>-->
+<!--<p th:text="${product.getProductMaker()}"></p>-->
+<!--<p th:text="${product.getProductName()}"></p>-->
+<!--<p th:text="${product.getPrice()}"></p>-->
+<!--<p th:text="${product.getAmount()}"></p>-->
+<!--<p th:text="${product.getDescription()}"></p>-->
 
 </body>
 </html>

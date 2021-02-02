@@ -4,6 +4,7 @@ import com.zaliczenie.apkawebowa.model.Product;
 import com.zaliczenie.apkawebowa.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -12,12 +13,12 @@ public class ProductService {
     private ProductRepository productRepository;
     private BuyingService buyingService;
 
-    public ProductService(ProductRepository productRepository, BuyingService buyingService){
+    public ProductService(ProductRepository productRepository, BuyingService buyingService) {
         this.productRepository = productRepository;
-        this.buyingService= buyingService;
+        this.buyingService = buyingService;
     }
 
-    public Product save (Product product){
+    public Product save(Product product) {
         return productRepository.save(product);
     }
 
@@ -25,21 +26,39 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Optional<Product> findById(Long ProductId){
-        if (ProductId == 10L ){
+    public Optional<Product> findById(Long ProductId) {
+        if (ProductId == 10L) {
             throw new RuntimeException();
-        }else {
+        } else {
             Optional<Product> ById = productRepository.findById(ProductId);
             return ById;
         }
     }
-    public Optional<Product> buy(Long ProductId, int amount){
-        Product ById =  findById(ProductId).get();
-        if (buyingService.buyProduct(ById, amount) != null) {
-            ById = buyingService.buyProduct(ById,amount);
-            return productRepository.save(ById);
-        }else {
-            return null;
+
+    public Product partialUpdateById(Map<String, Object> updates, Long ProductId) {
+
+        Product ById = findById(ProductId).get();
+
+        if(updates.containsKey("productName")){
+            ById.setProductName(String.valueOf(updates.get("productName")));
         }
+
+        if(updates.containsKey("productMaker")){
+            ById.setProductMaker(String.valueOf(updates.get("productMaker")));
+        }
+
+        if(updates.containsKey("description")){
+            ById.setDescription(String.valueOf(updates.get("description")));
+        }
+
+        if(updates.containsKey("price")){
+            ById.setPrice((Integer) updates.get("price"));
+        }
+
+        if(updates.containsKey("amount")){
+            ById.setAmount((Integer) updates.get("amount"));
+        }
+
+        return productRepository.save(ById);
     }
 }

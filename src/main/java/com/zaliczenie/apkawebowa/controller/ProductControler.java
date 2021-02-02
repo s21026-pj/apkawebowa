@@ -1,6 +1,7 @@
 package com.zaliczenie.apkawebowa.controller;
 
 import com.zaliczenie.apkawebowa.model.Product;
+import com.zaliczenie.apkawebowa.repository.ProductRepository;
 import com.zaliczenie.apkawebowa.service.ProductService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +17,20 @@ import java.util.Optional;
 public class ProductControler {
 
     private ProductService productService;
+    private ProductRepository productRepository;
 
     public ProductControler(ProductService productService){this.productService=productService;}
 
-    @GetMapping("/produkt")
-    public String get(Model model){
-        Product product =new Product("Beanie","Prada",49,100,"Opis rzeczy w rzeczy samej", Product.Category.women);
-        model.addAttribute("name","olek");
-        model.addAttribute("product", product);
-        return "product";
+    @GetMapping("/show/{id}")
+    public String get(Model model,@PathVariable Long id){
+        Optional<Product> optionalProduct = productService.findById(id);
+        if(optionalProduct.isPresent()) {
+            model.addAttribute("name", "olek");
+            model.addAttribute("product",optionalProduct.get());
+            return "product";
+        }else {
+            return "Not_Found";
+        }
     }
 
     @GetMapping("/{id}")
@@ -47,16 +53,15 @@ public class ProductControler {
         return ResponseEntity.ok(productService.update(product));
     }
 
-    @GetMapping( "/{id}/{amount}")
-    public ResponseEntity<Product> buy(@PathVariable Long id, @PathVariable int amount ) {
-        Optional<Product> optionalProduct= Optional.ofNullable(productService.buy(id, amount));
-        if (optionalProduct != null) {
-            return ResponseEntity.ok(productService.findById(id).get());
-        }else {
-            return ResponseEntity.notFound().build();
-        }
 
+//    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> partialUpdate(
+            @RequestBody Map<String, Object> updates,
+            @PathVariable("id") Long id){
+        return ResponseEntity.ok(productService.partialUpdateById(updates, id));
     }
+
 
 }
 
