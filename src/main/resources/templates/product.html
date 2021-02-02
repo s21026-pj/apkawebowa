@@ -9,7 +9,7 @@
 <body>
 <div class="menu">
     <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a th:href="@{/product/home}">Home</a></li>
         <li class="dropdown">
             <a href="https://www.google.com/" class="dropbtn">Kategorie</a>
             <div class="dropdown-content">
@@ -32,18 +32,18 @@
 
     <div class="row">
         <div class="column">
-            <img th:src="@{/foto/BL1.jpg}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+            <img th:src="@{'/foto/' + ${product.getId()} + '_1.jpg'}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
         </div>
         <div class="column">
-            <img th:src="@{/foto/BL2.jpg}" style="width:100%" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
+            <img th:src="@{'/foto/' + ${product.getId()} + '_2.jpg'}" style="width:100%" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
         </div>
     </div>
     <div class="row">
         <div class="column">
-            <img th:src="@{/foto/BL3.jpg}" style="width:100%" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
+            <img th:src="@{'/foto/' + ${product.getId()} + '_3.jpg'}" style="width:100%" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
         </div>
         <div class="column">
-            <img th:src="@{/foto/BL4.jpg}" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
+            <img th:src="@{'/foto/' + ${product.getId()} + '_4.jpg'}" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
         </div>
     </div>
 
@@ -53,22 +53,22 @@
 
             <div class="mySlides">
                 <div class="numbertext">1 / 4</div>
-                <img th:src="@{/foto/1_1.jpg}" style="width:100% ">
+                <img th:src="@{'/foto/' + ${product.getId()} + '_1.jpg'}" style="width:100% ">
             </div>
 
             <div class="mySlides">
                 <div class="numbertext">2 / 4</div>
-                <img th:src="@{/foto/1_2.jpg}" style="width:100%">
+                <img th:src="@{'/foto/' + ${product.getId()} + '_2.jpg'}" style="width:100%">
             </div>
 
             <div class="mySlides">
                 <div class="numbertext">3 / 4</div>
-                <img th:src="@{/foto/1_3.jpg}" style="width:100%">
+                <img th:src="@{'/foto/' + ${product.getId()} + '_3.jpg'}" style="width:100%">
             </div>
 
             <div class="mySlides">
                 <div class="numbertext">4 / 4</div>
-                <img th:src="@{/foto/1_4.jpg}" style="width:100%">
+                <img th:src="@{'/foto/' + ${product.getId()} + '_4.jpg'}" style="width:100%">
             </div>
 
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -80,16 +80,16 @@
 
 
             <div class="column_d">
-                <img class="demo cursor" th:src="@{/foto/1_1.jpg}" style="width:100%" onclick="currentSlide(1)" th:alt="${product.getProductName()}">
+                <img class="demo cursor" th:src="@{'/foto/' + ${product.getId()} + '_1.jpg'}" style="width:100%" onclick="currentSlide(1)" th:alt="${product.getProductName()}">
             </div>
             <div class="column_d">
-                <img class="demo cursor" th:src="@{/foto/1_2.jpg}" style="width:100%" onclick="currentSlide(2)" th:alt="${product.getProductName()}">
+                <img class="demo cursor" th:src="@{'/foto/' + ${product.getId()} + '_2.jpg'}" style="width:100%" onclick="currentSlide(2)" th:alt="${product.getProductName()}">
             </div>
             <div class="column_d">
-                <img class="demo cursor" th:src="@{/foto/1_3.jpg}" style="width:100%" onclick="currentSlide(3)" th:alt="${product.getProductName()}">
+                <img class="demo cursor" th:src="@{'/foto/' + ${product.getId()} + '_3.jpg'}" style="width:100%" onclick="currentSlide(3)" th:alt="${product.getProductName()}">
             </div>
             <div class="column_d">
-                <img class="demo cursor" th:src="@{/foto/1_4.jpg}" style="width:100%" onclick="currentSlide(4)" th:alt="${product.getProductName()}">
+                <img class="demo cursor" th:src="@{'/foto/' + ${product.getId()} + '_4.jpg'}" style="width:100%" onclick="currentSlide(4)" th:alt="${product.getProductName()}">
             </div>
         </div>
     </div>
@@ -117,7 +117,7 @@
 
 <!--<p>Pozdrowienia</p>-->
 <!--<p th:text="${name}">Pozdrowienia</p>-->
-<!--<p th:text="${product.getProductMaker()}"></p>-->
+<!--<p th:text="${product.getId()}"></p>-->
 <!--<p th:text="${product.getProductName()}"></p>-->
 <!--<p th:text="${product.getPrice()}"></p>-->
 <!--<p th:text="${product.getAmount()}"></p>-->

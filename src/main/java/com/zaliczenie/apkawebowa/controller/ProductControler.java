@@ -17,7 +17,6 @@ import java.util.Optional;
 public class ProductControler {
 
     private ProductService productService;
-    private ProductRepository productRepository;
 
     public ProductControler(ProductService productService){this.productService=productService;}
 
@@ -31,6 +30,10 @@ public class ProductControler {
         }else {
             return "Not_Found";
         }
+    }
+    @GetMapping("/home")
+    public String get(Model model){
+        return "home";
     }
 
     @GetMapping("/{id}")
@@ -54,7 +57,6 @@ public class ProductControler {
     }
 
 
-//    @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> partialUpdate(
             @RequestBody Map<String, Object> updates,
