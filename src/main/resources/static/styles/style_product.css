@@ -348,3 +348,15 @@ li{
         float: right;
     }
 }
+
+#previousPage{
+    float: left;
+    position: relative;
+    top: 185px;
+}
+
+#nextPage{
+    float: right;
+    position: relative;
+    top: 185px;
+}

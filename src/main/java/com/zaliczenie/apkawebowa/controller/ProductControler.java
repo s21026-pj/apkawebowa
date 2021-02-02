@@ -1,14 +1,15 @@
 package com.zaliczenie.apkawebowa.controller;
 
 import com.zaliczenie.apkawebowa.model.Product;
-import com.zaliczenie.apkawebowa.repository.ProductRepository;
 import com.zaliczenie.apkawebowa.service.ProductService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,10 +32,17 @@ public class ProductControler {
             return "Not_Found";
         }
     }
-    @GetMapping("/home")
-    public String get(Model model){
-        return "home";
+    @GetMapping("/page/{pageNumber}")
+    public String filterByPrice(Model model, @PathVariable int pageNumber){
+        Page<Product> productList = productService.filterByPrice(pageNumber);
+        int pageCount=(int) productList.getTotalElements()/4;
+
+            model.addAttribute("productList", productList);
+            model.addAttribute("pageCount", pageCount);
+            model.addAttribute("pageNumber", pageNumber);
+            return "home2";
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id) {

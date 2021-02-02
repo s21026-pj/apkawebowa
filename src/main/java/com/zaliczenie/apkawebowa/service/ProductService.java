@@ -2,12 +2,17 @@ package com.zaliczenie.apkawebowa.service;
 
 import com.zaliczenie.apkawebowa.model.Product;
 import com.zaliczenie.apkawebowa.repository.ProductRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static com.zaliczenie.apkawebowa.repository.ProductRepository.firstPageWithFourElements;
 
 @Service
 public class ProductService {
@@ -15,8 +20,10 @@ public class ProductService {
     private ProductRepository productRepository;
     private BuyingService buyingService;
 
-    Pageable firstPageWithTwoElements = (Pageable) PageRequest.of(0,2);
-
+    public Page<Product> filterByPrice(int pageNumber){
+        Page<Product> allTenDollarProducts = productRepository.findAllByPriceGreaterThanEqual(10,PageRequest.of(pageNumber,4, Sort.by("price").ascending()));
+        return allTenDollarProducts;
+    }
     public ProductService(ProductRepository productRepository, BuyingService buyingService) {
         this.productRepository = productRepository;
         this.buyingService = buyingService;

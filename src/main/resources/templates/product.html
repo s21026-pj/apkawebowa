@@ -9,7 +9,7 @@
 <body>
 <div class="menu">
     <ul>
-        <li><a th:href="@{/product/home}">Home</a></li>
+        <li><a th:href="@{/product/page/0}">Home</a></li>
         <li class="dropdown">
             <a href="https://www.google.com/" class="dropbtn">Kategorie</a>
             <div class="dropdown-content">
@@ -110,18 +110,10 @@
     </ul>
     <div class="cart">
         <h3>Dodaj do koszyka</h3>
-        <img class="cart_icon" th:src="@{/foto/cart.png}" alt="Dodaj do koszyka:">
+        <img class="cart_icon" th:src="@{/foto/cart.png}" alt="Dodaj do koszyka:" th:onclick="|buy(${product.getAmount()})|" id="cartIcon">
     </div>
 
 </div>
-
-<!--<p>Pozdrowienia</p>-->
-<!--<p th:text="${name}">Pozdrowienia</p>-->
-<!--<p th:text="${product.getId()}"></p>-->
-<!--<p th:text="${product.getProductName()}"></p>-->
-<!--<p th:text="${product.getPrice()}"></p>-->
-<!--<p th:text="${product.getAmount()}"></p>-->
-<!--<p th:text="${product.getDescription()}"></p>-->
 
 </body>
 </html>

@@ -13,7 +13,7 @@
 
 <div class="menu">
     <ul>
-        <li><a th:href="@{/product/home}">Home</a></li>
+        <li><a th:href="@{/product/page/0}">Home</a></li>
         <li class="dropdown">
             <a href="https://www.google.com/" class="dropbtn">Kategorie</a>
             <div class="dropdown-content">
@@ -53,42 +53,42 @@
 
     </div>
 
-    <div class="text1">
-        <h1>Nowości w tym tygodniu:</h1>
+    <div class="text1" id="lastText">
+        <h1 class="bottomTitle">Nowości w tym tygodniu:</h1>
 
-
+        <button type="button" id="previousPage" th:onclick="|goToPrevious(${pageCount},${pageNumber})|">Previous</button>
         <div class="gallery">
-            <a target="_self" href="show/1">
-                <img th:src="@{/foto/1.jpg}" alt="Beanie hat" >
+            <a target="_self" th:href="@{'/product/show/' + ${productList.content.get(0).getId()}}" >
+                <img th:src="@{'/foto/' + ${productList.content.get(0).getId()} + '.jpg'}" alt="Beanie hat" >
             </a>
-            <div class="desc">Beanie </div>
-            <div class="price">49 PLN</div>
+            <div class="desc" th:text="${productList.content.get(0).getProductName()}"></div>
+            <div class="price"th:text="${productList.content.get(0).getPrice()} + 'PLN' "></div>
         </div>
 
         <div class="gallery">
-            <a target="_self" href="show/2">
-                <img th:src="@{/foto/2.jpg}" alt="Coat" >
+            <a target="_self" th:href="@{'/product/show/' + ${productList.content.get(1).getId()}}" >
+                <img th:src="@{'/foto/' + ${productList.content.get(1).getId()} + '.jpg'}" alt="Beanie hat" >
             </a>
-            <div class="desc">Płaszcz</div>
-            <div class="price">529 PLN</div>
+            <div class="desc" th:text="${productList.content.get(1).getProductName()}"></div>
+            <div class="price"th:text="${productList.content.get(1).getPrice()} + 'PLN' "></div>
         </div>
 
         <div class="gallery">
-            <a target="_self" href="show/3">
-                <img th:src="@{/foto/3.jpg}" alt="Jacket" >
+            <a target="_self" th:href="@{'/product/show/' + ${productList.content.get(2).getId()}}" >
+                <img th:src="@{'/foto/' + ${productList.content.get(2).getId()} + '.jpg'}" alt="Beanie hat" >
             </a>
-            <div class="desc">Jacket</div>
-            <div class="price">349 PLN</div>
+            <div class="desc" th:text="${productList.content.get(2).getProductName()}"></div>
+            <div class="price"th:text="${productList.content.get(2).getPrice()} + 'PLN' "></div>
         </div>
 
         <div class="gallery">
-            <a target="_self" href="show/4">
-                <img th:src="@{/foto/4.jpg}" alt="Dress" >
+            <a target="_self" th:href="@{'/product/show/' + ${productList.content.get(3).getId()}}" >
+                <img th:src="@{'/foto/' + ${productList.content.get(3).getId()} + '.jpg'}" alt="Beanie hat" >
             </a>
-            <div class="desc">Dress</div>
-            <div class="price">399 PLN</div>
+            <div class="desc" th:text="${productList.content.get(3).getProductName()}"></div>
+            <div class="price"th:text="${productList.content.get(3).getPrice()} + 'PLN' "></div>
         </div>
-
+        <button type="button" id="nextPage" th:onclick="|goToNext(${pageCount},${pageNumber})|">Next</button>
     </div>
 </div>
 
