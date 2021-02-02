@@ -2,8 +2,10 @@ package com.zaliczenie.apkawebowa.service;
 
 import com.zaliczenie.apkawebowa.model.Product;
 import com.zaliczenie.apkawebowa.repository.ProductRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,6 +14,8 @@ public class ProductService {
 
     private ProductRepository productRepository;
     private BuyingService buyingService;
+
+    Pageable firstPageWithTwoElements = (Pageable) PageRequest.of(0,2);
 
     public ProductService(ProductRepository productRepository, BuyingService buyingService) {
         this.productRepository = productRepository;
