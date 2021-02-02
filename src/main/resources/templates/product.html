@@ -110,7 +110,7 @@
     </ul>
     <div class="cart">
         <h3>Dodaj do koszyka</h3>
-        <img class="cart_icon" th:src="@{/foto/cart.png}" alt="Dodaj do koszyka:" th:onclick="|buy(${product.getAmount()})|" id="cartIcon">
+        <img class="cart_icon" th:src="@{/foto/cart.png}" alt="Dodaj do koszyka:" th:onclick="|buy(${product.getAmount()},${product.getId()})|" id="cartIcon">
     </div>
 
 </div>

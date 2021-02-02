@@ -37,6 +37,13 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public int sell(Long id) {
+    Product soldItem= findById(id).get();
+    soldItem.setAmount(soldItem.getAmount()-1);
+    productRepository.save(soldItem);
+    return soldItem.getAmount();
+    }
+
     public Optional<Product> findById(Long ProductId) {
         if (ProductId == 10L) {
             throw new RuntimeException();

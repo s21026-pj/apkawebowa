@@ -72,10 +72,15 @@ function showSlides(n) {
     captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
-function buy(a) {
+function buy(a,id) {
     if(a>0){
         var boughtIcon = document.getElementById("cartIcon");
         boughtIcon.setAttribute("src","/foto/cart2.png")
+        const Http = new XMLHttpRequest();
+        const url='/product/sold/'+id;
+        Http.open("GET", url);
+        Http.send();
+        return a-1;
     }
 }
 

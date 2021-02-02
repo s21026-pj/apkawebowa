@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,6 +51,12 @@ public class ProductControler {
             ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(optionalProduct.get());
+    }
+
+    @GetMapping("/sold/{id}")
+    public ResponseEntity<String> sell(@PathVariable Long id){
+        int leftAmount=productService.sell(id);
+        return ResponseEntity.ok("Zostało"+leftAmount);
     }
 
     @PostMapping
