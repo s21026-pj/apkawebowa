@@ -5,6 +5,7 @@
     <meta charset="utf-8"/>
     <link th:href="@{/styles/style_product.css}" rel="stylesheet" type="text/css">
     <script th:src="@{/scripts/script_product.js}"></script>
+    <script src="https://kit.fontawesome.com/1cb642554d.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="menu">
@@ -100,7 +101,7 @@
 <div class="right_description">
     <h1 class="product_name" th:text="${product.getProductName()}"></h1>
     <h2 class="price" th:text="${product.getPrice()} "></h2>
-    <h2 class="price">PLN</h2>
+    <h2 class="price">EUR</h2>
     <p th:text="${product.getDescription()}"></p>
     <ul>
         <li>Omnis iste natus error sit voluptatem</li>
@@ -108,10 +109,13 @@
         <li>Laudantium, totam rem aperiam,</li>
         <li>Eaque ipsa quae ab illo inventore veritatis</li>
     </ul>
-    <div class="cart">
-        <h3>Dodaj do koszyka</h3>
-        <img class="cart_icon" th:src="@{/foto/cart.png}" alt="Dodaj do koszyka:" th:onclick="|buy(${product.getAmount()},${product.getId()})|" id="cartIcon">
-    </div>
+
+    <form action="#" th:action="@{'/product/order/'+ ${product.getId()}}" th:object="${ordered}" method="get">
+        <p>Customer login: <input type="text" th:field="*{customerLogin}" /></p>
+        <input type="hidden" th:field="*{productId}" />
+        <p>Amount: <input type="number"  th:field="*{orderAmount}" min="1" th:max="${product.getAmount()} "/></p>
+        <p><button type="submit"/> <i class="fas fa-cart-plus fa-3x"></i></button> <button type="reset"/> <i class="fas fa-undo fa-3x"></i></button></p>
+    </form>
 
 </div>
 

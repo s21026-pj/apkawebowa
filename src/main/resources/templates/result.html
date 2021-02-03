@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Added to cart</h1>
+
+    <p th:text="'Congratulations ' + ${ordered.getCustomerLogin()} + ' You have successfully added to cart ' + ${ordered.getOrderAmount()} + ' piece(s) of ' + ${productName}" />
+
+
+    <a href="javascript:history.back()">Go back to shopping</a>
+</body>
+</html>

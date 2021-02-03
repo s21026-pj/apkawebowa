@@ -37,20 +37,17 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public int sell(Long id) {
+    public int sell(Long id, int amount) {
     Product soldItem= findById(id).get();
-    soldItem.setAmount(soldItem.getAmount()-1);
+    soldItem.setAmount(soldItem.getAmount()-amount);
     productRepository.save(soldItem);
     return soldItem.getAmount();
     }
 
     public Optional<Product> findById(Long ProductId) {
-        if (ProductId == 10L) {
-            throw new RuntimeException();
-        } else {
+
             Optional<Product> ById = productRepository.findById(ProductId);
             return ById;
-        }
     }
 
     public Product partialUpdateById(Map<String, Object> updates, Long ProductId) {

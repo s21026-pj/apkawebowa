@@ -9,8 +9,8 @@ public class Product {
 
     public enum Category{
         men, women, kid, accessory;
-
     }
+
     @Id
     @GeneratedValue
     private Long id;
@@ -22,6 +22,10 @@ public class Product {
     Category category;
 
     public Product() {
+    }
+
+    public Product(Long id){
+        this.id = id;
     }
 
     public Product(String productName, String productMaker, int price, int amount, String description, Category category) {

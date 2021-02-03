@@ -75,11 +75,12 @@ function showSlides(n) {
 function buy(a,id) {
     if(a>0){
         var boughtIcon = document.getElementById("cartIcon");
-        boughtIcon.setAttribute("src","/foto/cart2.png")
+        boughtIcon.setAttribute("src","/foto/cart2.png");
         const Http = new XMLHttpRequest();
         const url='/product/sold/'+id;
         Http.open("GET", url);
         Http.send();
+        boughtIcon.setAttribute("onclick","");
         return a-1;
     }
 }

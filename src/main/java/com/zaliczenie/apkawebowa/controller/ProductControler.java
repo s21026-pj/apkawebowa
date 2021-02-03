@@ -1,6 +1,8 @@
 package com.zaliczenie.apkawebowa.controller;
 
+import com.zaliczenie.apkawebowa.model.Ordered;
 import com.zaliczenie.apkawebowa.model.Product;
+import com.zaliczenie.apkawebowa.service.OrderedService;
 import com.zaliczenie.apkawebowa.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -17,6 +19,7 @@ import java.util.Optional;
 public class ProductControler {
 
     private ProductService productService;
+    private OrderedService orderedService;
 
     public ProductControler(ProductService productService){this.productService=productService;}
 
@@ -24,8 +27,10 @@ public class ProductControler {
     public String get(Model model,@PathVariable Long id){
         Optional<Product> optionalProduct = productService.findById(id);
         if(optionalProduct.isPresent()) {
+            Ordered ordered =new Ordered(optionalProduct.get().getId());
             model.addAttribute("name", "olek");
             model.addAttribute("product",optionalProduct.get());
+            model.addAttribute("ordered", ordered);
             return "product";
         }else {
             return "Not_Found";
@@ -53,9 +58,9 @@ public class ProductControler {
         return ResponseEntity.ok(optionalProduct.get());
     }
 
-    @GetMapping("/sold/{id}")
-    public ResponseEntity<String> sell(@PathVariable Long id){
-        int leftAmount=productService.sell(id);
+    @GetMapping("/sold/{id}/{amount}")
+    public ResponseEntity<String> sell(@PathVariable Long id, @PathVariable int amount){
+        int leftAmount=productService.sell(id,amount);
         return ResponseEntity.ok("Zostało"+leftAmount);
     }
 
@@ -77,6 +82,17 @@ public class ProductControler {
         return ResponseEntity.ok(productService.partialUpdateById(updates, id));
     }
 
+
+
+    @GetMapping("/order/{id}")
+    public String greetingSubmit(@ModelAttribute Ordered ordered, Model model, @PathVariable Long id, @RequestParam int orderAmount) {
+        String productName =productService.findById(id).get().getProductName();
+        int leftAmount=productService.sell(id,orderAmount);
+        orderedService.save(ordered);
+        model.addAttribute("ordered", ordered);
+        model.addAttribute("productName", productName);
+        return "result";
+    }
 
 }
 
