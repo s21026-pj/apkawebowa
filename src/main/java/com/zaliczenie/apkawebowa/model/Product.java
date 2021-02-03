@@ -7,18 +7,18 @@ import javax.persistence.Id;
 @Entity
 public class Product {
 
-    public enum Category{
-        men, women, kid, accessory;
-    }
-
     @Id
     @GeneratedValue
     private Long id;
+
     private String productName;
     private String productMaker;
     private int price;
     private int amount;
     private String description;
+    public enum Category{
+        men, women, accessory;
+    }
     Category category;
 
     public Product() {

@@ -15,6 +15,7 @@ public class BuyingService {
     public BuyingService(ProductRepository productRepository){
         this.productRepository=productRepository;
     }
+
     public Product buyProduct(Product product, int soldAmount){
         if(product.getAmount()>soldAmount) {
             product.setAmount(product.getAmount() - soldAmount);

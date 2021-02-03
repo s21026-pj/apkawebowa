@@ -1,18 +1,15 @@
 package com.zaliczenie.apkawebowa.service;
 
 import com.zaliczenie.apkawebowa.model.Product;
+import org.springframework.stereotype.Service;
 import com.zaliczenie.apkawebowa.repository.ProductRepository;
+
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
-
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import static com.zaliczenie.apkawebowa.repository.ProductRepository.firstPageWithFourElements;
 
 @Service
 public class ProductService {
@@ -20,10 +17,6 @@ public class ProductService {
     private ProductRepository productRepository;
     private BuyingService buyingService;
 
-    public Page<Product> filterByPrice(int pageNumber){
-        Page<Product> allTenDollarProducts = productRepository.findAllByPriceGreaterThanEqual(10,PageRequest.of(pageNumber,4, Sort.by("price").ascending()));
-        return allTenDollarProducts;
-    }
     public ProductService(ProductRepository productRepository, BuyingService buyingService) {
         this.productRepository = productRepository;
         this.buyingService = buyingService;
@@ -31,6 +24,16 @@ public class ProductService {
 
     public Product save(Product product) {
         return productRepository.save(product);
+    }
+
+    public Optional<Product> findById(Long ProductId) {
+        Optional<Product> ById = productRepository.findById(ProductId);
+        return ById;
+    }
+
+    public Page<Product> filterByPrice(int pageNumber){
+        Page<Product> allTenDollarProducts = productRepository.findAllByPriceGreaterThanEqual(10,PageRequest.of(pageNumber,4, Sort.by("price").ascending()));
+        return allTenDollarProducts;
     }
 
     public Product update(Product product) {
@@ -42,12 +45,6 @@ public class ProductService {
     soldItem.setAmount(soldItem.getAmount()-amount);
     productRepository.save(soldItem);
     return soldItem.getAmount();
-    }
-
-    public Optional<Product> findById(Long ProductId) {
-
-            Optional<Product> ById = productRepository.findById(ProductId);
-            return ById;
     }
 
     public Product partialUpdateById(Map<String, Object> updates, Long ProductId) {

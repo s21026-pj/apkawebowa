@@ -4,6 +4,7 @@ import com.zaliczenie.apkawebowa.model.Ordered;
 import com.zaliczenie.apkawebowa.model.Product;
 import com.zaliczenie.apkawebowa.service.OrderedService;
 import com.zaliczenie.apkawebowa.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class ProductControler {
 
     private ProductService productService;
+    @Autowired
     private OrderedService orderedService;
 
     public ProductControler(ProductService productService){this.productService=productService;}
@@ -27,7 +29,7 @@ public class ProductControler {
     public String get(Model model,@PathVariable Long id){
         Optional<Product> optionalProduct = productService.findById(id);
         if(optionalProduct.isPresent()) {
-            Ordered ordered =new Ordered(optionalProduct.get().getId());
+            Ordered ordered =new Ordered(); //optionalProduct.get().getId()
             model.addAttribute("name", "olek");
             model.addAttribute("product",optionalProduct.get());
             model.addAttribute("ordered", ordered);
@@ -36,17 +38,16 @@ public class ProductControler {
             return "Not_Found";
         }
     }
+
     @GetMapping("/page/{pageNumber}")
     public String filterByPrice(Model model, @PathVariable int pageNumber){
         Page<Product> productList = productService.filterByPrice(pageNumber);
         int pageCount=(int) productList.getTotalElements()/4;
-
             model.addAttribute("productList", productList);
             model.addAttribute("pageCount", pageCount);
             model.addAttribute("pageNumber", pageNumber);
             return "home2";
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id) {
@@ -74,7 +75,6 @@ public class ProductControler {
         return ResponseEntity.ok(productService.update(product));
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> partialUpdate(
             @RequestBody Map<String, Object> updates,
@@ -82,12 +82,11 @@ public class ProductControler {
         return ResponseEntity.ok(productService.partialUpdateById(updates, id));
     }
 
-
-
     @GetMapping("/order/{id}")
     public String greetingSubmit(@ModelAttribute Ordered ordered, Model model, @PathVariable Long id, @RequestParam int orderAmount) {
         String productName =productService.findById(id).get().getProductName();
-        int leftAmount=productService.sell(id,orderAmount);
+        productService.sell(id,orderAmount);
+        ordered.setProductId(id);
         orderedService.save(ordered);
         model.addAttribute("ordered", ordered);
         model.addAttribute("productName", productName);
