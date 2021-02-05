@@ -1,19 +1,21 @@
 package com.zaliczenie.apkawebowa.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.Check;
+
+import javax.persistence.*;
 
 @Entity
+//@Check(constraints = "product_amount>=0")
 public class Product {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String productName;
     private String productMaker;
-    private int price;
+    private float price;
+//    @Column
     private int amount;
     private String description;
     public enum Category{
@@ -28,7 +30,12 @@ public class Product {
         this.id = id;
     }
 
-    public Product(String productName, String productMaker, int price, int amount, String description, Category category) {
+    public Product(Long id, int amount){
+        this.id = id;
+        this.amount = amount;
+    }
+
+    public Product(String productName, String productMaker, float price, int amount, String description, Category category) {
         this.productName = productName;
         this.productMaker = productMaker;
         this.price = price;
@@ -45,11 +52,11 @@ public class Product {
         this.amount = amount;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

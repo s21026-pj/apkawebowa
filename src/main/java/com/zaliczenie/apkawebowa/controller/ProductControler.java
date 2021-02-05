@@ -2,6 +2,7 @@ package com.zaliczenie.apkawebowa.controller;
 
 import com.zaliczenie.apkawebowa.model.Ordered;
 import com.zaliczenie.apkawebowa.model.Product;
+import com.zaliczenie.apkawebowa.service.ClientService;
 import com.zaliczenie.apkawebowa.service.OrderedService;
 import com.zaliczenie.apkawebowa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class ProductControler {
     private ProductService productService;
     @Autowired
     private OrderedService orderedService;
+    @Autowired
+    private ClientService clientService;
 
     public ProductControler(ProductService productService){this.productService=productService;}
 
@@ -84,13 +87,16 @@ public class ProductControler {
 
     @GetMapping("/order/{id}")
     public String greetingSubmit(@ModelAttribute Ordered ordered, Model model, @PathVariable Long id, @RequestParam int orderAmount) {
-        String productName =productService.findById(id).get().getProductName();
-        productService.sell(id,orderAmount);
-        ordered.setProductId(id);
-        orderedService.save(ordered);
-        model.addAttribute("ordered", ordered);
-        model.addAttribute("productName", productName);
-        return "result";
+        if(orderedService.placeOrder(id,ordered)) {
+            String productName =productService.findById(id).get().getProductName();
+            model.addAttribute("ordered", ordered);
+            model.addAttribute("productName", productName);
+            return "result";
+        }else {
+            String status ="Ordered amount exceeds stock amount or user login incorrect";
+            model.addAttribute("Status",status);
+            return "Too_Much";
+        }
     }
 
 }

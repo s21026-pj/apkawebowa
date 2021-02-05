@@ -11,9 +11,16 @@ public class Ordered {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    private Long finalId;
+
     private int orderAmount;
     private Long productId;
     private String customerLogin;
+    public enum Status{
+        open, closed, send, toPrepare;
+    }
+    Status status = Status.open;
 
     public Ordered(){
     }
@@ -29,6 +36,21 @@ public class Ordered {
         this.customerLogin = customerLogin;
     }
 
+    public Long getFinalId() {
+        return finalId;
+    }
+
+    public void setFinalId(Long finalId) {
+        this.finalId = finalId;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

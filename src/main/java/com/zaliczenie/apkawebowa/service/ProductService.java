@@ -1,6 +1,7 @@
 package com.zaliczenie.apkawebowa.service;
 
 import com.zaliczenie.apkawebowa.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zaliczenie.apkawebowa.repository.ProductRepository;
 
@@ -9,17 +10,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class ProductService {
 
+    @Autowired
     private ProductRepository productRepository;
+    @Autowired
     private BuyingService buyingService;
 
     public ProductService(ProductRepository productRepository, BuyingService buyingService) {
         this.productRepository = productRepository;
         this.buyingService = buyingService;
+    }
+
+    public ProductService() {
+
     }
 
     public Product save(Product product) {
@@ -41,10 +49,14 @@ public class ProductService {
     }
 
     public int sell(Long id, int amount) {
-    Product soldItem= findById(id).get();
-    soldItem.setAmount(soldItem.getAmount()-amount);
-    productRepository.save(soldItem);
-    return soldItem.getAmount();
+        Product soldItem= findById(id).get();
+        if (soldItem.getAmount() >= amount ) {
+            soldItem.setAmount(soldItem.getAmount() - amount);
+            productRepository.save(soldItem);
+            return soldItem.getAmount();
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public Product partialUpdateById(Map<String, Object> updates, Long ProductId) {
@@ -72,5 +84,9 @@ public class ProductService {
         }
 
         return productRepository.save(ById);
+    }
+
+    public void deleteAll() {
+        productRepository.deleteAll();
     }
 }

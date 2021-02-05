@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
-    Page<Product> findAllByPriceGreaterThanEqual(int price, Pageable pageable);
+    Page<Product> findAllByPriceGreaterThanEqual(float price, Pageable pageable);
 }
