@@ -1,16 +1,14 @@
 package com.zaliczenie.apkawebowa.service;
 
 import com.zaliczenie.apkawebowa.model.Product;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.zaliczenie.apkawebowa.repository.ProductRepository;
-
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -39,8 +37,8 @@ public class ProductService {
         return ById;
     }
 
-    public Page<Product> filterByPrice(int pageNumber){
-        Page<Product> allTenDollarProducts = productRepository.findAllByPriceGreaterThanEqual(10,PageRequest.of(pageNumber,4, Sort.by("price").ascending()));
+    public Page<Product> filterByPrice(int pageNumber) {
+        Page<Product> allTenDollarProducts = productRepository.findAllByPriceGreaterThanEqual(10, PageRequest.of(pageNumber, 4, Sort.by("price").ascending()));
         return allTenDollarProducts;
     }
 
@@ -49,8 +47,8 @@ public class ProductService {
     }
 
     public int sell(Long id, int amount) {
-        Product soldItem= findById(id).get();
-        if (soldItem.getAmount() >= amount ) {
+        Product soldItem = findById(id).get();
+        if (soldItem.getAmount() >= amount) {
             soldItem.setAmount(soldItem.getAmount() - amount);
             productRepository.save(soldItem);
             return soldItem.getAmount();
@@ -63,23 +61,23 @@ public class ProductService {
 
         Product ById = findById(ProductId).get();
 
-        if(updates.containsKey("productName")){
+        if (updates.containsKey("productName")) {
             ById.setProductName(String.valueOf(updates.get("productName")));
         }
 
-        if(updates.containsKey("productMaker")){
+        if (updates.containsKey("productMaker")) {
             ById.setProductMaker(String.valueOf(updates.get("productMaker")));
         }
 
-        if(updates.containsKey("description")){
+        if (updates.containsKey("description")) {
             ById.setDescription(String.valueOf(updates.get("description")));
         }
 
-        if(updates.containsKey("price")){
+        if (updates.containsKey("price")) {
             ById.setPrice((Integer) updates.get("price"));
         }
 
-        if(updates.containsKey("amount")){
+        if (updates.containsKey("amount")) {
             ById.setAmount((Integer) updates.get("amount"));
         }
 

@@ -25,20 +25,21 @@ public class ClientControler {
     }
 
     @PostMapping
-    public ResponseEntity<Client> save(@RequestBody Client client){
-        return  ResponseEntity.ok(clientService.save(client));
+    public ResponseEntity<Client> save(@RequestBody Client client) {
+        return ResponseEntity.ok(clientService.save(client));
     }
+
     @GetMapping("/{login}")
-    public ResponseEntity<Client> checkIfExistLogin(@PathVariable String login ){
-        Client lookedClient=clientService.getClientByLogin(login);
-        if(lookedClient!=null) {
+    public ResponseEntity<Client> checkIfExistLogin(@PathVariable String login) {
+        Client lookedClient = clientService.getClientByLogin(login);
+        if (lookedClient != null) {
             return ResponseEntity.ok(lookedClient);
         }
         throw new NoSuchUserException();
     }
 
     @PostMapping("/{customerId}")
-    public List<Ordered> finalize(@PathVariable Long customerId){
+    public List<Ordered> finalize(@PathVariable Long customerId) {
         return orderedService.finalizeOrder(customerId);
     }
 }

@@ -9,17 +9,18 @@ public class BuyingService {
 
     private ProductRepository productRepository;
 
-    public BuyingService(){
+    public BuyingService() {
 
     }
-    public BuyingService(ProductRepository productRepository){
-        this.productRepository=productRepository;
+
+    public BuyingService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
-    public Product buyProduct(Product product, int soldAmount){
-        if(product.getAmount()>soldAmount) {
+    public Product buyProduct(Product product, int soldAmount) {
+        if (product.getAmount() > soldAmount) {
             product.setAmount(product.getAmount() - soldAmount);
-        }else{
+        } else {
             return null;
         }
         return product;

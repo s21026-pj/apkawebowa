@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface OrderedRepository extends JpaRepository<Ordered,Long> {
+public interface OrderedRepository extends JpaRepository<Ordered, Long> {
 
     @Query("SELECT o FROM Ordered o  Where o.status=0")
     Collection<Ordered> findAllOpenOrders();

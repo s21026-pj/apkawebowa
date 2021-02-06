@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class ProductServiceTestIT {
 
     @BeforeEach
-    void cleanup(){
+    void cleanup() {
         productService.deleteAll();
     }
 
@@ -25,15 +25,15 @@ public class ProductServiceTestIT {
     @Test
     void ifSellingMoreThanHaveShouldThrowException() {
 
-        productService.save(new Product(1L,100));
+        productService.save(new Product(1L, 100));
 
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(()->productService.sell(1L,110));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> productService.sell(1L, 110));
     }
 
     @Test
-    void shouldNotFindById(){
+    void shouldNotFindById() {
 
-        Optional<Product> foundById=productService.findById(1L);
+        Optional<Product> foundById = productService.findById(1L);
 
         assertThat(foundById).isEmpty();
     }

@@ -1,6 +1,9 @@
 package com.zaliczenie.apkawebowa.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
 @Entity
@@ -16,6 +19,7 @@ public class Client {
 
     public Client() {
     }
+
     public Client(String clientLogin, String clientName, String clientSurName) {
         this.clientLogin = clientLogin;
         this.clientName = clientName;
