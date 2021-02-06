@@ -1,6 +1,7 @@
 package com.zaliczenie.apkawebowa.controller;
 
 import com.zaliczenie.apkawebowa.exceptions.NoSuchUserException;
+import com.zaliczenie.apkawebowa.exceptions.RepetedUserException;
 import com.zaliczenie.apkawebowa.model.Client;
 import com.zaliczenie.apkawebowa.model.Ordered;
 import com.zaliczenie.apkawebowa.service.ClientService;
@@ -25,7 +26,7 @@ public class ClientControler {
     }
 
     @PostMapping
-    public ResponseEntity<Client> save(@RequestBody Client client) {
+    public ResponseEntity<Client> save(@RequestBody Client client) throws RepetedUserException {
         return ResponseEntity.ok(clientService.save(client));
     }
 

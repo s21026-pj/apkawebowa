@@ -1,6 +1,7 @@
 package com.zaliczenie.apkawebowa.service;
 
 import com.zaliczenie.apkawebowa.model.Product;
+import com.zaliczenie.apkawebowa.exceptions.sellAmountExceedsSocException;
 import com.zaliczenie.apkawebowa.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,7 +54,7 @@ public class ProductService {
             productRepository.save(soldItem);
             return soldItem.getAmount();
         } else {
-            throw new IllegalArgumentException();
+            throw new sellAmountExceedsSocException();
         }
     }
 
