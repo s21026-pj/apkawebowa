@@ -17,12 +17,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private BuyingService buyingService;
 
-    public ProductService(ProductRepository productRepository, BuyingService buyingService) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.buyingService = buyingService;
     }
 
     public ProductService() {
