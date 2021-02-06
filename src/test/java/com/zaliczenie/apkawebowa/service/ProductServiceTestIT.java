@@ -27,7 +27,7 @@ public class ProductServiceTestIT {
 
         productService.save(new Product(1L, 100));
 
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> productService.sell(1L, 110));
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> productService.sell(1L, 110));
     }
 
     @Test
